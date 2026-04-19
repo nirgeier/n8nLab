@@ -1,0 +1,12 @@
+###
+### mkdocs-site.yml
+###
+docs_dir: Labs
+edit_uri:
+repo_name: __REPO_OWNER__/__REPO_NAME__
+repo_url: __REPO_URL__
+site_author: Nir Geier - nirgeier@gmail.com
+site_description: A collection of __REPO_NAME__ Labs
+site_dir: ./mkdocs-site
+site_name: __REPO_NAME__
+site_url: __SITE_URL__

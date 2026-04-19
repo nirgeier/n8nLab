@@ -1,0 +1,12 @@
+###
+### mkdocs-site.yml
+###
+docs_dir: Labs
+edit_uri:
+repo_name: nirgeier/n8nLab
+repo_url: https://github.com/nirgeier/n8nLab
+site_author: Nir Geier - nirgeier@gmail.com
+site_description: n8n Deep Dive Labs
+site_dir: ./mkdocs-site
+site_name: n8nLab
+site_url: https://nirgeier.github.io/n8nLab/

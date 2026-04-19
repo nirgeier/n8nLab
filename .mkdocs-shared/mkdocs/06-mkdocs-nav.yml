@@ -1,0 +1,8 @@
+###
+### mkdocs-nav.yml
+###
+
+nav:
+  - Start Here: welcome.md
+  - Labs:
+      - index.md

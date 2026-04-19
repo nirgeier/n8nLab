@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # n8n Workflow Automation Engine
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-local
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - NODE_ENV=development
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_USER=${DB_USER:-n8n}
+      - DB_POSTGRESDB_PASSWORD=${DB_PASSWORD:-n8n_password}
+      - DB_POSTGRESDB_DATABASE=${DB_NAME:-n8n}
+      - TZ=UTC
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./workflows:/home/node/.n8n/workflows:rw
+    networks:
+      - n8n-network
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: n8n-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-n8n}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-n8n_password}
+      POSTGRES_DB: ${DB_NAME:-n8n}
+      TZ: UTC
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - n8n-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-n8n}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: n8n-pgadmin
+    restart: unless-stopped
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@n8n.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - n8n-network
+    depends_on:
+      - postgres
+
+volumes:
+  n8n_data:
+  postgres_data:
+
+networks:
+  n8n-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+###
+### mkdocs-nav.yml
+###
+
+nav:
+  - Labs:
+      - index.md
+      - welcome.md
+      - 001-Installation: 001-Installation/README.md
+      - 002-Triggers: 002-Triggers/README.md
+      - 003-Database: 003-Database/README.md
+      - 004-HTTPAPIs: 004-HTTPAPIs/README.md
+      - 005-Notifications: 005-Notifications/README.md
+      - 006-FileProcessing: 006-FileProcessing/README.md
+      - 007-AIIntegration: 007-AIIntegration/README.md
+      - 008-ErrorHandling: 008-ErrorHandling/README.md
+      - 009-Advanced: 009-Advanced/README.md
+      - 010-Production: 010-Production/README.md
+      - 011-AdvancedTasks: 011-AdvancedTasks/README.md
+      - 012-ComplexPatterns: 012-ComplexPatterns/README.md
+      - 013-LocalSetup: 013-LocalSetup/README.md
+      # --- Tasks ---
+      - Tasks:
+          - Tasks/index.md
+          - n8n Workflows: Tasks/n8n/README.md
